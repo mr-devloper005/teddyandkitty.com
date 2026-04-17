@@ -82,7 +82,7 @@ export function Footer() {
 
   if (recipe.footer === 'dense-footer') {
     return (
-      <footer className="border-t border-white/10 bg-[linear-gradient(180deg,#07111f_0%,#0b1a2e_100%)] text-white">
+      <footer className="border-t border-[#1b4332]/40 bg-[linear-gradient(180deg,#1b4332_0%,#0f2a22_100%)] text-[#f9f7f2]">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr_1fr]">
             <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7">
@@ -97,7 +97,7 @@ export function Footer() {
               </div>
               <p className="mt-5 max-w-md text-sm leading-7 text-slate-300">{SITE_CONFIG.description}</p>
               {primaryTask ? (
-                <Link href={primaryTask.route} className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#8df0c8] px-4 py-2.5 text-sm font-semibold text-[#07111f] hover:bg-[#77dfb8]">
+                <Link href={primaryTask.route} className="mt-6 inline-flex items-center gap-2 rounded-md bg-[#d4a373] px-4 py-2.5 text-sm font-semibold text-[#1b4332] shadow-sm hover:bg-[#c49263]">
                   Explore {primaryTask.label}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
