@@ -39,6 +39,10 @@ const taskIcons: Record<TaskKey, any> = {
   classified: Tag,
   image: ImageIcon,
   profile: User,
+  social: LayoutGrid,
+  pdf: FileText,
+  org: Building2,
+  comment: FileText,
 }
 
 function resolveTaskKey(value: unknown, fallback: TaskKey): TaskKey {
@@ -114,14 +118,15 @@ function getEditorialTone() {
 
 function getVisualTone() {
   return {
-    shell: 'bg-[#07101f] text-white',
-    panel: 'border border-white/10 bg-[rgba(11,18,31,0.78)] shadow-[0_28px_80px_rgba(0,0,0,0.35)]',
-    soft: 'border border-white/10 bg-white/6',
-    muted: 'text-slate-300',
-    title: 'text-white',
-    badge: 'bg-[#8df0c8] text-[#07111f]',
-    action: 'bg-[#8df0c8] text-[#07111f] hover:bg-[#77dfb8]',
-    actionAlt: 'border border-white/10 bg-white/6 text-white hover:bg-white/10',
+    shell: 'bg-[#f9f7f2] text-[#1b1b1b]',
+    panel: 'border border-[#1b4332]/10 bg-white shadow-[0_28px_70px_rgba(27,67,50,0.1)]',
+    soft: 'border border-[#1b4332]/10 bg-[#faf8f4]',
+    muted: 'text-[#4f5c56]',
+    title: 'text-[#1b4332]',
+    badge: 'border border-[#d4a373]/45 bg-[#d4a373]/18 text-[#5c3d10]',
+    action: 'bg-[#d4a373] text-[#1b4332] hover:bg-[#c49263]',
+    actionAlt: 'border border-white/25 bg-white/10 text-white hover:bg-white/16',
+    heroWash: 'bg-gradient-to-b from-[#1b4332]/88 via-[#1b4332]/55 to-[#1b4332]/35',
   }
 }
 
@@ -347,62 +352,150 @@ function VisualHome({ primaryTask, imagePosts, profilePosts, articlePosts }: { p
   const tone = getVisualTone()
   const gallery = imagePosts.length ? imagePosts.slice(0, 5) : articlePosts.slice(0, 5)
   const creators = profilePosts.slice(0, 3)
+  const heroImage =
+    'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=80'
 
   return (
     <main className={tone.shell}>
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-18">
-        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-          <div>
-            <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${tone.badge}`}>
-              <ImageIcon className="h-3.5 w-3.5" />
-              Visual publishing system
-            </span>
-            <h1 className={`mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.06em] sm:text-6xl ${tone.title}`}>
-              Image-led discovery with creator profiles and a more gallery-like browsing rhythm.
-            </h1>
-            <p className={`mt-6 max-w-2xl text-base leading-8 ${tone.muted}`}>{SITE_CONFIG.description}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href={primaryTask?.route || '/images'} className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
-                Open gallery
-                <ArrowRight className="h-4 w-4" />
+      <section className="relative min-h-[520px] overflow-hidden md:min-h-[580px]">
+        <img src={heroImage} alt="" className="absolute inset-0 h-full w-full object-cover" loading="eager" />
+        <div className={`absolute inset-0 ${tone.heroWash}`} aria-hidden />
+        <div className="relative z-10 mx-auto max-w-4xl px-4 pb-28 pt-24 text-center sm:pt-28 md:pb-32 md:pt-32">
+          <span className="inline-flex items-center gap-2 rounded-md border border-white/25 bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95">
+            <ImageIcon className="h-3.5 w-3.5" />
+            Galleries &amp; profiles
+          </span>
+          <h1 className="mt-6 text-4xl font-semibold leading-[1.08] tracking-[-0.04em] text-white sm:text-5xl md:text-6xl">
+            Curate your look. Share your story. Discover creators through calm, gallery-first browsing.
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/88">{SITE_CONFIG.description}</p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href={primaryTask?.route || '/images'}
+              className={`inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-semibold shadow-md transition-transform duration-200 hover:-translate-y-0.5 ${tone.action}`}
+            >
+              Browse galleries
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/profile"
+              className={`inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-semibold backdrop-blur-sm transition-colors ${tone.actionAlt}`}
+            >
+              View profiles
+            </Link>
+          </div>
+        </div>
+
+        <div className="relative z-20 mx-auto -mt-20 max-w-3xl px-4 sm:-mt-24">
+          <div className={`rounded-lg p-6 sm:p-8 ${tone.panel}`}>
+            <div className="flex flex-wrap gap-2 border-b border-[#1b4332]/10 pb-4">
+              <Link
+                href="/images"
+                className="rounded-md bg-[#1b4332] px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#f9f7f2] shadow-sm"
+              >
+                Gallery browse
               </Link>
-              <Link href="/profile" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.actionAlt}`}>
-                Meet creators
+              <Link
+                href="/profile"
+                className="rounded-md border border-[#1b4332]/15 bg-[#faf8f4] px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#1b4332] hover:bg-[#f0ebe2]"
+              >
+                Creator discovery
               </Link>
             </div>
+            <form action="/search" method="get" className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-stretch">
+              <label className="sr-only" htmlFor="home-q">
+                Search
+              </label>
+              <input
+                id="home-q"
+                name="q"
+                placeholder="Search galleries, people, or keywords"
+                className="h-12 flex-1 rounded-md border border-[#1b4332]/12 bg-[#faf8f4] px-4 text-sm text-[#1b1b1b] outline-none ring-offset-2 focus-visible:ring-2 focus-visible:ring-[#d4a373]/50"
+              />
+              <button
+                type="submit"
+                className={`h-12 shrink-0 rounded-md px-6 text-sm font-semibold transition-opacity hover:opacity-95 ${tone.action}`}
+              >
+                Continue
+              </button>
+            </form>
           </div>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-            {gallery.slice(0, 5).map((post, index) => (
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-16 pt-24 sm:px-6 sm:pt-28 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:items-start">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            {gallery.slice(0, 4).map((post, index) => (
               <Link
                 key={post.id}
                 href={getTaskHref(resolveTaskKey(post.task, 'image'), post.slug)}
-                className={index === 0 ? `col-span-2 row-span-2 overflow-hidden rounded-[2.4rem] ${tone.panel}` : `overflow-hidden rounded-[1.8rem] ${tone.soft}`}
+                className={`overflow-hidden rounded-lg ${index === 0 ? `col-span-2 aspect-[16/9] sm:aspect-[2/1] ${tone.panel}` : `aspect-square ${tone.soft}`}`}
               >
-                <div className={index === 0 ? 'relative h-[360px]' : 'relative h-[170px]'}>
+                <div className={`relative w-full ${index === 0 ? 'h-full min-h-[200px]' : 'h-full min-h-[140px]'} overflow-hidden`}>
+                  <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover transition-transform duration-500 hover:scale-[1.03]" />
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#b8894a]">About the studio</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-[#1b4332] sm:text-4xl">
+              A boutique surface for imagery and identity — built for trust, not noise.
+            </h2>
+            <p className={`mt-5 max-w-xl text-sm leading-8 sm:text-base ${tone.muted}`}>
+              Teddy And Kitty keeps galleries and profiles in one refined rhythm: generous spacing, warm neutrals, and
+              forest-and-gold accents that feel established rather than trendy.
+            </p>
+            <Link
+              href="/about"
+              className={`mt-8 inline-flex items-center gap-2 rounded-md px-5 py-2.5 text-sm font-semibold ${tone.action}`}
+            >
+              Read more
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-16 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className={`rounded-lg p-7 sm:p-8 ${tone.panel}`}>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#b8894a]">Featured creators</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-[#1b4332]">
+              Profiles that read as clearly as the images they showcase.
+            </h2>
+            <p className={`mt-4 max-w-2xl text-sm leading-8 ${tone.muted}`}>
+              Move from a striking still to the person behind it — same visual language, same calm pacing.
+            </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {creators.map((post) => (
+              <Link key={post.id} href={`/profile/${post.slug}`} className={`rounded-lg p-4 transition-shadow duration-300 hover:shadow-md ${tone.soft}`}>
+                <div className="relative h-36 overflow-hidden rounded-md sm:h-40">
                   <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
                 </div>
+                <h3 className="mt-4 text-lg font-semibold text-[#1b4332]">{post.title}</h3>
+                <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{post.summary || 'Creator profile and visual identity surface.'}</p>
               </Link>
             ))}
           </div>
         </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className={`rounded-[2rem] p-7 ${tone.panel}`}>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Visual notes</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Larger media surfaces, fewer boxes, stronger pacing.</h2>
-            <p className={`mt-4 max-w-2xl text-sm leading-8 ${tone.muted}`}>This product avoids business-directory density and publication framing. The homepage behaves more like a visual board, with profile surfaces and imagery leading the experience.</p>
-          </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {creators.map((post) => (
-              <Link key={post.id} href={`/profile/${post.slug}`} className={`rounded-[1.8rem] p-5 ${tone.soft}`}>
-                <div className="relative h-40 overflow-hidden rounded-[1.2rem]">
-                  <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
-                </div>
-                <h3 className="mt-4 text-lg font-semibold">{post.title}</h3>
-                <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{post.summary || 'Creator profile and visual identity surface.'}</p>
-              </Link>
-            ))}
-          </div>
+        <div className="mt-14 grid gap-4 md:grid-cols-3">
+          {gallery.slice(0, 5).map((post, index) => (
+            <Link
+              key={`${post.id}-strip-${index}`}
+              href={getTaskHref(resolveTaskKey(post.task, 'image'), post.slug)}
+              className={`overflow-hidden rounded-lg ${tone.panel}`}
+            >
+              <div className="relative h-48 w-full overflow-hidden md:h-56">
+                <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
+              </div>
+              <div className="p-4">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b8894a]">Visual</p>
+                <h3 className="mt-1 text-lg font-semibold text-[#1b4332]">{post.title}</h3>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
     </main>
@@ -521,7 +614,7 @@ export default async function HomePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="site-page">
       <NavbarShell />
       <SchemaJsonLd data={schemaData} />
       {productKind === 'directory' ? (

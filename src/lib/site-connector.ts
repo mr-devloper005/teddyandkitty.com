@@ -2,6 +2,8 @@ export type SitePost = {
   id: string;
   title: string;
   slug: string;
+  /** Present on some connector payloads; used for homepage routing hints. */
+  task?: string | null;
   summary?: string | null;
   metaTitle?: string | null;
   metaDescription?: string | null;
@@ -37,6 +39,10 @@ const FEED_REVALIDATE_SECONDS = (() => {
   const parsed = Number(process.env.NEXT_PUBLIC_FEED_REVALIDATE_SECONDS ?? 300);
   return Number.isFinite(parsed) && parsed > 0 ? parsed : 300;
 })();
+const REQUEST_TIMEOUT_MS = (() => {
+  const parsed = Number(process.env.NEXT_PUBLIC_PUBLIC_API_TIMEOUT_MS ?? 8000);
+  return Number.isFinite(parsed) && parsed >= 1000 ? parsed : 8000;
+})();
 
 const getPublicUrl = (path: string) => {
   if (!API_BASE || !SITE_CODE) return null;
@@ -48,9 +54,14 @@ async function fetchPublicJson<T>(path: string, options?: { fresh?: boolean }): 
   if (!target) return null;
 
   try {
+    const signal =
+      typeof AbortSignal !== "undefined" && typeof AbortSignal.timeout === "function"
+        ? AbortSignal.timeout(REQUEST_TIMEOUT_MS)
+        : undefined;
     const response = await fetch(target, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
+      signal,
       ...(options?.fresh ? { cache: "no-store" } : { next: { revalidate: FEED_REVALIDATE_SECONDS } }),
     });
 
