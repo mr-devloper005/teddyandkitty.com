@@ -2,6 +2,8 @@ export type SitePost = {
   id: string;
   title: string;
   slug: string;
+  /** Present on some connector payloads; used for homepage routing hints. */
+  task?: string | null;
   summary?: string | null;
   metaTitle?: string | null;
   metaDescription?: string | null;

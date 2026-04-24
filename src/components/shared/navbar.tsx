@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Search, Menu, X, User, FileText, Building2, LayoutGrid, Tag, Image as ImageIcon, ChevronRight, Sparkles, MapPin, Plus } from 'lucide-react'
+import { Search, Menu, X, User, FileText, Building2, LayoutGrid, Tag, Image as ImageIcon, ChevronRight, Sparkles, MapPin, Plus, Info, Mail } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/lib/auth-context'
 import { SITE_CONFIG, type TaskKey } from '@/lib/site-config'
@@ -49,12 +49,13 @@ const variantClasses = {
     mobile: 'border-t border-[#dbc6b6] bg-[#fff7ee]',
   },
   'floating-bar': {
-    shell: 'border-b border-transparent bg-transparent text-white',
-    logo: 'rounded-[1.35rem] border border-white/12 bg-white/8 shadow-[0_16px_48px_rgba(15,23,42,0.22)] backdrop-blur',
-    active: 'bg-[#8df0c8] text-[#07111f]',
-    idle: 'text-slate-200 hover:bg-white/10 hover:text-white',
-    cta: 'rounded-full bg-[#8df0c8] text-[#07111f] hover:bg-[#77dfb8]',
-    mobile: 'border-t border-white/10 bg-[#09101d]/96',
+    shell:
+      'border-b border-[#1b4332]/12 bg-[#f9f7f2]/94 text-[#1b4332] shadow-[0_1px_0_rgba(27,67,50,0.06)] backdrop-blur-xl supports-[backdrop-filter]:bg-[#f9f7f2]/88',
+    logo: 'rounded-lg border border-[#1b4332]/12 bg-white shadow-sm',
+    active: 'bg-[#d4a373] text-[#1b4332] shadow-sm',
+    idle: 'text-[#1b4332]/90 hover:bg-[#1b4332]/08 hover:text-[#1b4332]',
+    cta: 'rounded-lg bg-[#d4a373] text-[#1b4332] shadow-sm hover:bg-[#c49263]',
+    mobile: 'border-t border-[#1b4332]/12 bg-[#f9f7f2] text-[#1b4332] shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]',
   },
   'utility-bar': {
     shell: 'border-b border-[#d7deca] bg-[#f4f6ef]/94 text-[#1f2617] backdrop-blur-xl',
@@ -87,6 +88,15 @@ const directoryPalette = {
   },
 } as const
 
+const staticNavLinks = [
+  { href: '/about', label: 'About', icon: Info },
+  { href: '/contact', label: 'Contact us', icon: Mail },
+] as const
+
+function isStaticNavActive(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`)
+}
+
 export function Navbar() {
   if (NAVBAR_OVERRIDE_ENABLED) {
     return <NavbarOverride />
@@ -97,7 +107,7 @@ export function Navbar() {
   const { isAuthenticated } = useAuth()
   const { recipe } = getFactoryState()
 
-  const navigation = useMemo(() => SITE_CONFIG.tasks.filter((task) => task.enabled && task.key !== 'profile'), [])
+  const navigation = useMemo(() => SITE_CONFIG.tasks.filter((task) => task.enabled), [])
   const primaryNavigation = navigation.slice(0, 5)
   const mobileNavigation = navigation.map((task) => ({
     name: task.label,
@@ -133,16 +143,24 @@ export function Navbar() {
                   </Link>
                 )
               })}
+              {staticNavLinks.map((item) => {
+                const isActive = isStaticNavActive(pathname, item.href)
+                return (
+                  <Link key={item.href} href={item.href} className={cn('text-sm font-semibold transition-colors', isActive ? 'text-foreground' : palette.nav)}>
+                    {item.label}
+                  </Link>
+                )
+              })}
             </div>
           </div>
 
           <div className="hidden min-w-0 flex-1 items-center justify-center lg:flex">
             <div className={cn('flex w-full max-w-xl items-center gap-3 rounded-full px-4 py-3', palette.search)}>
               <Search className="h-4 w-4" />
-              <span className="text-sm">Find businesses, spaces, and local services</span>
+              <span className="text-sm">Search galleries, creators, and visual posts</span>
               <div className="ml-auto hidden items-center gap-1 text-xs opacity-75 md:flex">
                 <MapPin className="h-3.5 w-3.5" />
-                Local discovery
+                Discovery
               </div>
             </div>
           </div>
@@ -165,7 +183,7 @@ export function Navbar() {
                 <Button size="sm" asChild className={cn('rounded-full', palette.cta)}>
                   <Link href="/register">
                     <Plus className="mr-1 h-4 w-4" />
-                    Add Listing
+                    Join free
                   </Link>
                 </Button>
               </div>
@@ -182,7 +200,7 @@ export function Navbar() {
             <div className="space-y-2 px-4 py-4">
               <div className={cn('mb-3 flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium', palette.search)}>
                 <Search className="h-4 w-4" />
-                Find businesses, spaces, and services
+                Search galleries and profiles
               </div>
               {mobileNavigation.map((item) => {
                 const isActive = pathname.startsWith(item.href)
@@ -190,6 +208,21 @@ export function Navbar() {
                   <Link key={item.name} href={item.href} onClick={() => setIsMobileMenuOpen(false)} className={cn('flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors', isActive ? 'bg-foreground text-background' : palette.post)}>
                     <item.icon className="h-5 w-5" />
                     {item.name}
+                  </Link>
+                )
+              })}
+              {staticNavLinks.map((item) => {
+                const Icon = item.icon
+                const isActive = isStaticNavActive(pathname, item.href)
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={cn('flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors', isActive ? 'bg-foreground text-background' : palette.post)}
+                  >
+                    <Icon className="h-5 w-5" />
+                    {item.label}
                   </Link>
                 )
               })}
@@ -230,6 +263,14 @@ export function Navbar() {
                   </Link>
                 )
               })}
+              {staticNavLinks.map((item) => {
+                const isActive = isStaticNavActive(pathname, item.href)
+                return (
+                  <Link key={item.href} href={item.href} className={cn('text-sm font-semibold uppercase tracking-[0.18em] transition-colors', isActive ? 'text-[#2f1d16]' : 'text-[#7b6254] hover:text-[#2f1d16]')}>
+                    {item.label}
+                  </Link>
+                )
+              })}
               <div className="h-px flex-1 bg-[#d8c8bb]" />
             </div>
           ) : isFloating ? (
@@ -244,6 +285,16 @@ export function Navbar() {
                   </Link>
                 )
               })}
+              {staticNavLinks.map((item) => {
+                const Icon = item.icon
+                const isActive = isStaticNavActive(pathname, item.href)
+                return (
+                  <Link key={item.href} href={item.href} className={cn('flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-colors', isActive ? style.active : style.idle)}>
+                    <Icon className="h-4 w-4" />
+                    <span>{item.label}</span>
+                  </Link>
+                )
+              })}
             </div>
           ) : isUtility ? (
             <div className="hidden min-w-0 flex-1 items-center gap-2 xl:flex">
@@ -252,6 +303,14 @@ export function Navbar() {
                 return (
                   <Link key={task.key} href={task.route} className={cn('rounded-lg px-3 py-2 text-sm font-semibold transition-colors', isActive ? style.active : style.idle)}>
                     {task.label}
+                  </Link>
+                )
+              })}
+              {staticNavLinks.map((item) => {
+                const isActive = isStaticNavActive(pathname, item.href)
+                return (
+                  <Link key={item.href} href={item.href} className={cn('rounded-lg px-3 py-2 text-sm font-semibold transition-colors', isActive ? style.active : style.idle)}>
+                    {item.label}
                   </Link>
                 )
               })}
@@ -268,19 +327,27 @@ export function Navbar() {
                   </Link>
                 )
               })}
+              {staticNavLinks.map((item) => {
+                const Icon = item.icon
+                const isActive = isStaticNavActive(pathname, item.href)
+                return (
+                  <Link key={item.href} href={item.href} className={cn('flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold transition-colors whitespace-nowrap', isActive ? style.active : style.idle)}>
+                    <Icon className="h-4 w-4" />
+                    <span>{item.label}</span>
+                  </Link>
+                )
+              })}
             </div>
           )}
         </div>
 
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-          {primaryTask && (recipe.navbar === 'utility-bar' || recipe.navbar === 'floating-bar') ? (
-            <Link href={primaryTask.route} className="hidden items-center gap-2 rounded-full border border-current/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] opacity-80 md:inline-flex">
-              <Sparkles className="h-3.5 w-3.5" />
-              {primaryTask.label}
-            </Link>
-          ) : null}
-
-          <Button variant="ghost" size="icon" asChild className="hidden rounded-full md:flex">
+          <Button
+            variant="ghost"
+            size="icon"
+            asChild
+            className={cn('hidden rounded-full md:flex', isFloating && 'text-[#1b4332] hover:bg-[#1b4332]/10 hover:text-[#1b4332]')}
+          >
             <Link href="/search">
               <Search className="h-5 w-5" />
               <span className="sr-only">Search</span>
@@ -291,7 +358,7 @@ export function Navbar() {
             <NavbarAuthControls />
           ) : (
             <div className="hidden items-center gap-2 md:flex">
-              <Button variant="ghost" size="sm" asChild className="rounded-full px-4">
+              <Button variant="ghost" size="sm" asChild className={cn('rounded-full px-4', isFloating && 'text-[#1b4332] hover:bg-[#1b4332]/10')}>
                 <Link href="/login">Sign In</Link>
               </Button>
               <Button size="sm" asChild className={style.cta}>
@@ -300,7 +367,12 @@ export function Navbar() {
             </div>
           )}
 
-          <Button variant="ghost" size="icon" className="rounded-full lg:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          <Button
+            variant="ghost"
+            size="icon"
+            className={cn('rounded-full lg:hidden', isFloating && 'text-[#1b4332] hover:bg-[#1b4332]/10')}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
             {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
@@ -308,7 +380,10 @@ export function Navbar() {
 
       {isFloating && primaryTask ? (
         <div className="mx-auto hidden max-w-7xl px-4 pb-3 sm:px-6 lg:block lg:px-8">
-          <Link href={primaryTask.route} className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-200 backdrop-blur hover:bg-white/12">
+          <Link
+            href={primaryTask.route}
+            className="inline-flex items-center gap-2 rounded-md border border-[#1b4332]/14 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#1b4332] shadow-sm hover:bg-[#faf8f4]"
+          >
             Featured surface
             <span>{primaryTask.label}</span>
             <ChevronRight className="h-3.5 w-3.5" />
@@ -319,7 +394,16 @@ export function Navbar() {
       {isMobileMenuOpen && (
         <div className={style.mobile}>
           <div className="space-y-2 px-4 py-4">
-            <Link href="/search" onClick={() => setIsMobileMenuOpen(false)} className="mb-3 flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-sm font-semibold text-muted-foreground">
+            <Link
+              href="/search"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={cn(
+                'mb-3 flex items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-semibold',
+                isFloating
+                  ? 'border-[#1b4332]/12 bg-white text-[#1b4332]'
+                  : 'border-border bg-card text-muted-foreground',
+              )}
+            >
               <Search className="h-4 w-4" />
               Search the site
             </Link>
@@ -329,6 +413,21 @@ export function Navbar() {
                 <Link key={item.name} href={item.href} onClick={() => setIsMobileMenuOpen(false)} className={cn('flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors', isActive ? style.active : style.idle)}>
                   <item.icon className="h-5 w-5" />
                   {item.name}
+                </Link>
+              )
+            })}
+            {staticNavLinks.map((item) => {
+              const Icon = item.icon
+              const isActive = isStaticNavActive(pathname, item.href)
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={cn('flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors', isActive ? style.active : style.idle)}
+                >
+                  <Icon className="h-5 w-5" />
+                  {item.label}
                 </Link>
               )
             })}

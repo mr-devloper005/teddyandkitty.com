@@ -9,7 +9,10 @@ export const siteContent = {
   },
   hero: {
     badge: 'Playful visual profiles',
-    title: ['Browse image stories, collections, and profile-driven creativity.'],
+    title: [
+      'Browse image stories, collections, and profile-driven creativity.',
+      'Forest, gold, and cream — a boutique studio for visual identity.',
+    ],
     description:
       'A playful image-first network where visual posts and profile identity lead the experience.',
     primaryCta: {
@@ -29,35 +32,35 @@ export const siteContent = {
   },
   home: {
     metadata: {
-      title: 'Stories, visuals, and discoverable content',
+      title: 'Galleries, profiles, and visual discovery',
       description:
-        'Explore articles, images, listings, and curated posts through a cleaner reading-first experience.',
-      openGraphTitle: 'Stories, visuals, and discoverable content',
+        'Browse image collections and creator profiles through a calm, gallery-first experience with boutique forest-and-gold styling.',
+      openGraphTitle: 'Galleries, profiles, and visual discovery',
       openGraphDescription:
-        'Discover articles, visual posts, and connected content through a calmer reading-first experience.',
-      keywords: ['story platform', 'article site', 'visual content', 'content discovery'],
+        'Explore galleries and profiles with generous spacing, warm neutrals, and a refined visual rhythm.',
+      keywords: ['image galleries', 'creator profiles', 'visual discovery', 'photo collections'],
     },
     introBadge: 'About the platform',
-    introTitle: 'Built for reading, browsing, and connecting different kinds of content.',
+    introTitle: 'Built for imagery and identity — galleries and profiles in one refined rhythm.',
     introParagraphs: [
-      'This site brings together article-style reading, visual browsing, and structured discovery so visitors can move naturally between different content types.',
-      'Instead of separating stories, visuals, and supporting resources into disconnected surfaces, the platform keeps them connected in one place with consistent navigation and easier exploration.',
-      'Whether someone starts with a story, an image-led post, a listing, or a resource page, they can keep discovering related content without friction.',
+      'Teddy And Kitty centers on visual posts and discoverable profiles so visitors can scan imagery first, then meet the people behind the work.',
+      'The layout borrows from premium boutique surfaces: forest green structure, warm gold accents, and cream paper backgrounds that stay easy on the eyes.',
+      'Whether someone starts with a gallery lane or a profile directory, the navigation stays compact and the motion stays intentionally light.',
     ],
     sideBadge: 'At a glance',
     sidePoints: [
-      'Reading-first homepage with stronger emphasis on stories and imagery.',
-      'Connected sections for articles, visuals, listings, and supporting resources.',
-      'Cleaner browsing rhythm designed to make exploration feel easier.',
-      'Lightweight interactions that keep the experience fast and readable.',
+      'Gallery-first homepage with overlapping discovery card for quick search.',
+      'Profile lanes that mirror the same typography and spacing as imagery cards.',
+      'Trust-forward presentation without marketplace clutter.',
+      'CSS-first motion so the site stays fast on mobile and desktop.',
     ],
     primaryLink: {
-      label: 'Browse articles',
-      href: '/articles',
+      label: 'Browse galleries',
+      href: '/images',
     },
     secondaryLink: {
-      label: 'See visuals',
-      href: '/images',
+      label: 'View profiles',
+      href: '/profile',
     },
   },
   cta: {
@@ -92,12 +95,12 @@ export const taskPageMetadata: Record<Exclude<TaskKey, 'comment' | 'org' | 'soci
     description: 'Browse classifieds, offers, notices, and time-sensitive posts across categories.',
   },
   image: {
-    title: 'Images and visual posts',
-    description: 'Explore image-led posts, galleries, and visual stories from across the platform.',
+    title: 'Galleries & visual stories',
+    description: 'Browse curated image posts, mood boards, and gallery-style collections on Teddy And Kitty.',
   },
   profile: {
-    title: 'Profiles and public pages',
-    description: 'Discover public profiles, brand pages, and identity-focused posts in one place.',
+    title: 'Creator & member profiles',
+    description: 'Meet the people behind the imagery—bios, highlights, and links in one calm profile directory.',
   },
   sbm: {
     title: 'Curated links and saved resources',
@@ -153,29 +156,29 @@ export const taskIntroCopy: Record<
     ],
   },
   image: {
-    title: 'Image-led posts and visual stories',
+    title: 'Inside the gallery lane',
     paragraphs: [
-      'Images take the lead in this section through galleries, visual posts, and story-led content where imagery carries the experience.',
-      'These posts connect with articles, listings, and other sections so visuals can act as entry points into deeper content.',
-      'Browse the latest visual updates, then continue into related stories or supporting pages for more context.',
+      'Every tile here is tuned for visual scanning—large imagery, soft cream panels, and forest typography so your eye finds the next story quickly.',
+      'Use categories to cluster moods and themes, or jump to search when you already know the creator or keyword you want.',
+      'When you are ready to publish, your posts inherit the same boutique styling visitors see on the homepage.',
     ],
     links: [
-      { label: 'Read articles', href: '/articles' },
-      { label: 'Explore listings', href: '/listings' },
-      { label: 'Open classifieds', href: '/classifieds' },
+      { label: 'Creator profiles', href: '/profile' },
+      { label: 'Help Center', href: '/help' },
+      { label: 'Community', href: '/community' },
     ],
   },
   profile: {
-    title: 'Profiles, identities, and public pages',
+    title: 'How profiles work here',
     paragraphs: [
-      'Profiles capture the identity behind a business, creator, brand, or project and help visitors understand who is behind the content they are exploring.',
-      'These pages work as trust anchors across the site and connect naturally with stories, listings, documents, and other post types.',
-      'Browse profiles to understand people and brands more clearly, then continue into related content from the same source.',
+      'Profiles are identity anchors: avatar, bio, highlights, and outbound links stay legible on cream surfaces with gold micro-accents.',
+      'They pair naturally with galleries—visitors can fall in love with an image, then learn who made it in a single click.',
+      'Whether you are a hobbyist or a working creative, the layout keeps trust cues visible without corporate clutter.',
     ],
     links: [
-      { label: 'Open listings', href: '/listings' },
-      { label: 'Read articles', href: '/articles' },
-      { label: 'Browse images', href: '/images' },
+      { label: 'Browse galleries', href: '/images' },
+      { label: 'Help Center', href: '/help' },
+      { label: 'Join free', href: '/register' },
     ],
   },
   sbm: {
@@ -207,14 +210,14 @@ export const taskIntroCopy: Record<
   social: {
     title: 'Short updates and community signals',
     paragraphs: [
-      'Short updates add quick signals that keep activity flowing across the platform.',
-      'They work well with stories, listings, and resources by helping visitors move from brief updates into deeper content.',
-      'Use these posts as lightweight entry points into the broader site experience.',
+      'Short updates add quick signals that keep activity flowing across Teddy And Kitty.',
+      'They pair with galleries and profiles so visitors can jump from a brief note into richer visual context.',
+      'Use these posts as lightweight entry points when you are not ready for a full gallery drop.',
     ],
     links: [
-      { label: 'Open listings', href: '/listings' },
-      { label: 'Read articles', href: '/articles' },
-      { label: 'View PDFs', href: '/pdf' },
+      { label: 'Browse galleries', href: '/images' },
+      { label: 'Meet creators', href: '/profile' },
+      { label: 'Help Center', href: '/help' },
     ],
   },
   comment: {
@@ -244,3 +247,114 @@ export const taskIntroCopy: Record<
     ],
   },
 }
+
+export const exploreLandingCopy = {
+  gallery: {
+    eyebrow: 'Galleries',
+    headline: 'A calm studio wall for imagery—built for slow browsing and fast saves.',
+    subhead:
+      'Scroll wide compositions, seasonal sets, and playful experiments. The same forest, gold, and cream language from the homepage carries through so Teddy And Kitty always feels like one product.',
+    primaryCta: 'Create your first post',
+    secondaryCta: 'View profiles',
+    pillars: [
+      {
+        kicker: 'Visual rhythm',
+        title: 'Large surfaces, gentle motion',
+        body: 'Cards lift on hover, imagery stays dominant, and typography stays quiet so photos stay the hero.',
+      },
+      {
+        kicker: 'Discovery',
+        title: 'Search + categories together',
+        body: 'Narrow by topic with the filter card, or leap straight into global search when you know what you need.',
+      },
+      {
+        kicker: 'Belonging',
+        title: 'Made for cozy communities',
+        body: 'Perfect for pet portraits, maker diaries, travel journals, and any story that deserves a softer corner of the internet.',
+      },
+    ],
+    story:
+      'We built this lane for people who are tired of algorithmic noise. Galleries load fast, respect your bandwidth, and keep accessibility defaults like readable contrast and keyboard-friendly controls.',
+    bullets: [
+      'Forest-and-gold accents mirror the homepage hero for instant brand recognition.',
+      'Responsive grids reflow cleanly on phones so vertical stories still feel premium.',
+      'Empty states stay encouraging—every gallery started with a single upload.',
+    ],
+    filterTitle: 'Tune this wall',
+    filterHint: 'Pick a category to reshuffle the grid. Your selection persists in the URL so sharing is effortless.',
+    filterCta: 'Apply category',
+    searchPlaceholder: 'Try a creator name, tag, or mood…',
+  },
+  profiles: {
+    eyebrow: 'Profiles',
+    headline: 'Meet the humans (and pets) behind the lens.',
+    subhead:
+      'Profiles on Teddy And Kitty read like boutique dossiers: warm paper panels, forest headings, and gold buttons for the actions that matter—follow, message, or jump back to galleries.',
+    primaryCta: 'Claim your profile',
+    secondaryCta: 'Browse galleries',
+    pillars: [
+      {
+        kicker: 'Trust',
+        title: 'Identity without noise',
+        body: 'Bio blocks, highlight chips, and outbound links stay structured so visitors know who they are supporting.',
+      },
+      {
+        kicker: 'Continuity',
+        title: 'Linked to every gallery',
+        body: 'Jump from profile to latest uploads without losing context—navigation stays in the same visual family.',
+      },
+      {
+        kicker: 'Care',
+        title: 'Support when you need it',
+        body: 'Help Center and Community pages explain moderation, safety, and creative tips in plain language.',
+      },
+    ],
+    story:
+      'Whether you showcase rescue pups, ceramics, or weekend photography, your profile should feel as considered as a printed portfolio. That is the bar we design to.',
+    bullets: [
+      'Avatar and cover treatments align with gallery cards for a cohesive studio look.',
+      'Social proof areas are optional—turn them on when you are ready, not because a template demands it.',
+      'Mobile layouts keep long bios readable with generous line height and cream backgrounds.',
+    ],
+    filterTitle: 'Slice the directory',
+    filterHint: 'Filter profiles the same way you filter galleries so muscle memory transfers across the site.',
+    filterCta: 'Apply category',
+    searchPlaceholder: 'Search people, studios, or keywords…',
+  },
+  community: {
+    eyebrow: 'Community',
+    headline: 'A softer town square for creators, pet people, and curious browsers.',
+    subhead:
+      'Announcements, prompts, and quick updates live here—still wrapped in forest green, warm cream, and gold so it never feels like a generic social feed.',
+    primaryCta: 'Share an update',
+    secondaryCta: 'Browse galleries',
+    pillars: [
+      {
+        kicker: 'Signal',
+        title: 'Short posts, clear intent',
+        body: 'Community cards stay compact so conversation stays readable on phones and late-night scrolling.',
+      },
+      {
+        kicker: 'Safety',
+        title: 'Human moderation mindset',
+        body: 'Report anything that feels off—Help Center explains how we review and respond.',
+      },
+      {
+        kicker: 'Continuity',
+        title: 'Tied to galleries & profiles',
+        body: 'Jump from a thread into imagery or a creator dossier without jarring layout shifts.',
+      },
+    ],
+    story:
+      'We treat community updates as ambient texture, not algorithmic pressure. Post when you have something genuine to say; the UI stays calm either way.',
+    bullets: [
+      'Gold CTAs match the homepage so actions are easy to spot.',
+      'Category filters reuse the same muscle memory as Galleries and Profiles.',
+      'Empty states stay friendly—every lively corner started with one hello.',
+    ],
+    filterTitle: 'Filter the feed',
+    filterHint: 'Pick a category to refocus the list. Your choice syncs to the URL for easy sharing.',
+    filterCta: 'Apply category',
+    searchPlaceholder: 'Search topics, moods, or names…',
+  },
+} as const

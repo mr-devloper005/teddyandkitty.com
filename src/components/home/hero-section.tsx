@@ -102,7 +102,12 @@ export function HeroSection({ images, tasks }: { images: string[]; tasks: TaskCo
               {SITE_THEME.hero.eyebrow}
             </div>
             <h1 className={`mt-6 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl ${palette.title}`}>
-              {siteContent.hero.title[0]} <span className="block opacity-90">{siteContent.hero.title[1]}</span>
+              {siteContent.hero.title[0]}
+              {siteContent.hero.title[1] ? (
+                <span className="mt-2 block text-4xl font-semibold tracking-[-0.05em] opacity-90 sm:text-5xl">
+                  {siteContent.hero.title[1]}
+                </span>
+              ) : null}
             </h1>
             <p className={`mt-6 max-w-2xl text-base leading-8 sm:text-lg ${palette.body}`}>{siteContent.hero.description}</p>
 
