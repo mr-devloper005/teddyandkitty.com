@@ -37,7 +37,7 @@ export const siteTaskDefinitions = [
     route: '/profile',
     description: 'Creator and member profiles.',
     contentType: 'profile',
-    enabled: true,
+    enabled: false,
   },
   {
     key: 'sbm',

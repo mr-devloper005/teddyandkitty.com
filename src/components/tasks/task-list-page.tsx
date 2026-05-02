@@ -223,15 +223,29 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
 
         {task === 'image' || task === 'profile' || task === 'social' ? (
           <div className="mb-8 border-t border-border pt-10">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b8894a]">Live feed</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b8894a]">
+              {normalizedCategory !== 'all' ? `Filtered by: ${normalizedCategory}` : 'Live feed'}
+            </p>
             <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-foreground">
-              {task === 'image' ? 'Spotlight galleries' : task === 'profile' ? 'People to know' : 'Community pulse'}
+              {normalizedCategory !== 'all' 
+                ? `${normalizedCategory.charAt(0).toUpperCase() + normalizedCategory.slice(1)} galleries`
+                : task === 'image' ? 'Spotlight galleries' : task === 'profile' ? 'People to know' : 'Community pulse'}
             </h2>
             <p className={`mt-2 max-w-2xl text-sm leading-relaxed ${ui.muted}`}>
-              {task === 'social'
-                ? 'Updates stay compact and readable—same palette as the homepage so nothing feels bolted on.'
-                : 'Cards use the same forest, cream, and gold accents as the homepage—hover for a gentle lift, tap to open the full story.'}
+              {normalizedCategory !== 'all'
+                ? `Showing only galleries in the "${normalizedCategory}" category.`
+                : task === 'social'
+                  ? 'Updates stay compact and readable—same palette as the homepage so nothing feels bolted on.'
+                  : 'Cards use the same forest, cream, and gold accents as the homepage—hover for a gentle lift, tap to open the full story.'}
             </p>
+            {normalizedCategory !== 'all' && (
+              <a 
+                href={taskConfig?.route || '/images'} 
+                className="mt-4 inline-flex items-center gap-1 text-sm text-primary hover:underline"
+              >
+                ← Clear filter and show all
+              </a>
+            )}
           </div>
         ) : null}
 
