@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Mail, MapPin } from "lucide-react";
 import { Footer } from "@/components/shared/footer";
 import { NavbarShell } from "@/components/shared/navbar-shell";
 import { ContentImage } from "@/components/shared/content-image";
+import { RichContent } from "@/components/shared/rich-content";
 import { TaskPostCard } from "@/components/shared/task-post-card";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SchemaJsonLd } from "@/components/seo/schema-jsonld";
 import { buildPostUrl } from "@/lib/task-data";
@@ -65,6 +68,7 @@ export default async function ProfileDetailPage({ params }: { params: Promise<{ 
   if (!post) {
     notFound();
   }
+
   const content = (post.content || {}) as Record<string, any>;
   const logoUrl = typeof content.logo === "string" ? content.logo : undefined;
   const brandName =
@@ -73,6 +77,8 @@ export default async function ProfileDetailPage({ params }: { params: Promise<{ 
     (content.name as string | undefined) ||
     post.title;
   const website = content.website as string | undefined;
+  const email = content.email as string | undefined;
+  const location = (content.location as string | undefined) || (content.address as string | undefined);
   const domain = website ? website.replace(/^https?:\/\//, "").replace(/\/.*$/, "") : undefined;
   const description =
     (content.description as string | undefined) ||
@@ -109,41 +115,75 @@ export default async function ProfileDetailPage({ params }: { params: Promise<{ 
   return (
     <div className="site-page">
       <NavbarShell />
-      <main className="mx-auto w-full max-w-6xl px-4 pb-16 pt-10 sm:px-6 lg:px-8">
+      <main className="mx-auto w-full max-w-[88rem] px-4 pb-16 pt-10 sm:px-6 lg:px-8">
         <SchemaJsonLd data={breadcrumbData} />
-        <section className="rounded-3xl border border-border/60 bg-white/90 p-8 shadow-sm md:p-12">
-          <div className="grid gap-8 md:grid-cols-[200px_1fr] md:items-start">
-            <div className="flex justify-center md:justify-start">
-              <div className="relative h-36 w-36 overflow-hidden rounded-full border border-border/70 bg-muted">
+
+        <section>
+          <div className="overflow-hidden rounded-[2rem] border border-[#1b4332]/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(249,247,242,0.95))] shadow-[0_30px_80px_rgba(27,67,50,0.08)]">
+            <div>
+              <div className="relative aspect-[21/9] w-full overflow-hidden bg-muted">
                 {logoUrl ? (
-                  <ContentImage src={logoUrl} alt={post.title} fill className="object-cover" sizes="144px" intrinsicWidth={144} intrinsicHeight={144} />
+                  <ContentImage
+                    src={logoUrl}
+                    alt={post.title}
+                    fill
+                    className="object-cover"
+                    sizes="100vw"
+                    intrinsicWidth={1200}
+                    intrinsicHeight={514}
+                  />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center text-3xl font-semibold text-muted-foreground">
+                  <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_top,rgba(212,163,115,0.26),transparent_40%),linear-gradient(180deg,#1b4332_0%,#214b39_100%)] text-7xl font-semibold text-white">
                     {post.title.slice(0, 1).toUpperCase()}
                   </div>
                 )}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#10281f]/72 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-center gap-3">
+                  <Badge className="bg-white/90 text-[#1b4332] hover:bg-white/90">Profile</Badge>
+                  {domain ? (
+                    <span className="rounded-full border border-white/25 bg-white/14 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
+                      {domain}
+                    </span>
+                  ) : null}
+                </div>
+              </div>
+
+              <div className="p-6 sm:p-8 lg:p-10">
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#b8894a]">Profile spotlight</p>
+                <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-[-0.05em] text-foreground sm:text-5xl">{brandName}</h1>
+                <div className="mt-5 flex flex-wrap gap-3 text-sm text-muted-foreground">
+                  {location ? (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#1b4332]/6 px-3 py-1 text-[#1b4332]">
+                      <MapPin className="h-3.5 w-3.5" />
+                      {location}
+                    </span>
+                  ) : null}
+                  {email ? (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#d4a373]/12 px-3 py-1 text-[#7f5d33]">
+                      <Mail className="h-3.5 w-3.5" />
+                      {email}
+                    </span>
+                  ) : null}
+                </div>
+                <RichContent html={descriptionHtml} className="mt-8 max-w-2xl prose-p:text-[1.02rem] prose-p:leading-8" />
+                <div className="mt-8 flex flex-wrap gap-3">
+                  {website ? (
+                    <Button asChild size="lg" className="px-7 text-base">
+                      <Link href={website} target="_blank" rel="noopener noreferrer">
+                        Visit Official Site
+                      </Link>
+                    </Button>
+                  ) : null}
+                  {email ? (
+                    <Button asChild size="lg" variant="outline" className="px-7 text-base">
+                      <a href={`mailto:${email}`}>Email profile</a>
+                    </Button>
+                  ) : null}
+                </div>
               </div>
             </div>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground sm:text-4xl">{brandName}</h1>
-              {domain ? (
-                <p className="mt-1 text-sm font-medium text-muted-foreground">{domain}</p>
-              ) : null}
-              <article
-                className="article-content prose prose-slate mt-6 max-w-2xl text-base leading-relaxed prose-p:my-4 prose-a:text-primary prose-a:underline prose-strong:font-semibold"
-                dangerouslySetInnerHTML={{ __html: descriptionHtml }}
-              />
-              {website ? (
-                <div className="mt-8">
-                  <Button asChild size="lg" className="px-7 text-base">
-                    <Link href={website} target="_blank" rel="noopener noreferrer">
-                      Visit Official Site
-                    </Link>
-                  </Button>
-                </div>
-              ) : null}
-            </div>
           </div>
+
         </section>
 
         {suggestedArticles.length ? (

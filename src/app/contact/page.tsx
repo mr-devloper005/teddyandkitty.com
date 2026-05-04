@@ -19,7 +19,7 @@ const lanes = [
   {
     icon: Sparkles,
     title: 'Partners & press',
-    body: 'Deck requests, sponsorship pacing, and editorial features—we answer with timelines, not auto-replies.',
+    body: 'Deck requests, sponsorship pacing, and editorial features - we answer with timelines, not auto-replies.',
   },
   {
     icon: MapPin,
@@ -28,12 +28,14 @@ const lanes = [
   },
 ]
 
+const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim()
+
 export async function generateMetadata(): Promise<Metadata> {
   return buildPageMetadata({
     path: '/contact',
     title: `Contact us | ${SITE_CONFIG.name}`,
     description:
-      'Reach the Teddy And Kitty studio—galleries, profiles, partnerships, and safety—in the same forest, cream, and gold experience as the rest of the site.',
+      'Reach the Teddy And Kitty studio - galleries, profiles, partnerships, and safety - in the same forest, cream, and gold experience as the rest of the site.',
     openGraphTitle: `Contact us | ${SITE_CONFIG.name}`,
     openGraphDescription: 'Send a message to Teddy And Kitty. We route every note to the right human.',
     image: SITE_CONFIG.defaultOgImage,
@@ -60,7 +62,7 @@ export default function ContactPage() {
           <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#d4a373]">Contact us</p>
             <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-white md:text-5xl">
-              We read every message—then route it like a small studio would.
+              We read every message, then route it like a small studio would.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90">
               Forest overlay, gold label, white type: the same hero language as Help and Galleries so this page never feels like a bolt-on form.
@@ -91,8 +93,7 @@ export default function ContactPage() {
                 Lanes we support
               </div>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                Share the fullest context you can—links, screenshots, time zones. We typically respond within two business days, sooner for safety
-                issues.
+                Share the fullest context you can - links, screenshots, time zones. We typically respond within two business days, sooner for safety issues.
               </p>
               <div className="mt-8 space-y-4">
                 {lanes.map((lane) => (
@@ -107,9 +108,23 @@ export default function ContactPage() {
               <div className="mt-8 flex items-start gap-3 rounded-lg border border-dashed border-[#1b4332]/20 bg-muted/30 p-4">
                 <Clock className="mt-0.5 h-5 w-5 shrink-0 text-[#1b4332]" aria-hidden />
                 <p className="text-sm text-muted-foreground">
-                  Prefer email? Use the form—your address becomes the reply-to. We do not publish your note on Community without permission.
+                  Prefer email? Use the form - your address becomes the reply-to. We do not publish your note on Community without permission.
                 </p>
               </div>
+
+              {contactEmail ? (
+                <div className="mt-4 rounded-lg border border-[#d4a373]/35 bg-[#fff7ec] p-4 shadow-sm">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#b8894a]">Direct email</p>
+                      <p className="mt-2 text-sm text-foreground">{contactEmail}</p>
+                    </div>
+                    <Button asChild className="rounded-md bg-[#1b4332] text-[#f9f7f2] hover:bg-[#143728]">
+                      <a href={`mailto:${contactEmail}`}>Email us</a>
+                    </Button>
+                  </div>
+                </div>
+              ) : null}
             </div>
 
             <Card className="border-border bg-card shadow-md">

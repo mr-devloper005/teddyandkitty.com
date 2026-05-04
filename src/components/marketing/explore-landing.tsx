@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { ArrowRight, Image as ImageIcon, User, Layers, Heart, Compass } from 'lucide-react'
 import { CATEGORY_OPTIONS } from '@/lib/categories'
@@ -87,7 +89,17 @@ export function ExploreLanding({
         <div className={`rounded-lg p-6 md:p-8 ${ui.soft}`}>
           <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">{copy.filterTitle}</h2>
           <p className={`mt-2 text-sm ${ui.muted}`}>{copy.filterHint}</p>
-          <form className="mt-6 grid gap-4" action={taskRoute}>
+          <form
+            className="mt-6 grid gap-4"
+            action={(formData) => {
+              const category = formData.get("category") as string;
+              if (category === "all") {
+                window.location.href = taskRoute;
+              } else {
+                window.location.href = `${taskRoute}/category-${category}`;
+              }
+            }}
+          >
             <div>
               <label className={`text-xs font-medium uppercase tracking-wide ${ui.muted}`}>Category</label>
               <select name="category" defaultValue={normalizedCategory} className={`mt-2 h-11 w-full rounded-lg px-3 text-sm ${ui.input}`}>
