@@ -19,7 +19,7 @@ export function ContactMessageForm() {
     setPending(false)
     toast({
       title: 'Message queued',
-      description: 'Thanks—we read every note and reply from the same calm studio inbox.',
+      description: 'Thanks - we read every note and reply from the same calm studio inbox.',
     })
     ;(e.target as HTMLFormElement).reset()
   }
@@ -36,7 +36,7 @@ export function ContactMessageForm() {
       </label>
       <label className="grid gap-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
         Topic
-        <input name="topic" required className={inputClass} placeholder="Partnership, press, safety, or general…" />
+        <input name="topic" required className={inputClass} placeholder="Partnership, press, safety, or general..." />
       </label>
       <label className="grid gap-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
         Message
@@ -47,7 +47,7 @@ export function ContactMessageForm() {
         disabled={pending}
         className="h-12 rounded-lg bg-[#1b4332] text-sm font-semibold text-[#f9f7f2] shadow-sm transition-opacity hover:bg-[#143728] disabled:opacity-60"
       >
-        {pending ? 'Sending…' : 'Send message'}
+        {pending ? 'Sending...' : 'Send message'}
       </button>
     </form>
   )

@@ -1,6 +1,6 @@
 import { ContentImage } from '@/components/shared/content-image'
 import Link from 'next/link'
-import { ArrowUpRight, ExternalLink, FileText, Mail, MapPin, Tag } from 'lucide-react'
+import { ArrowUpRight, ExternalLink, FileText, Mail, MapPin, Sparkles, Tag } from 'lucide-react'
 import type { SitePost } from '@/lib/site-connector'
 import { CATEGORY_OPTIONS, normalizeCategory } from '@/lib/categories'
 import type { TaskKey } from '@/lib/site-config'
@@ -111,11 +111,75 @@ export function TaskPostCard({
   const isBookmarkVariant = variant === 'sbm' || variant === 'social'
   const imageAspect = variant === 'image' ? 'aspect-[4/5]' : variant === 'article' ? 'aspect-[16/10]' : variant === 'pdf' ? 'aspect-[4/5]' : variant === 'classified' ? 'aspect-[16/11]' : 'aspect-[4/3]'
   const altText = `${post.title} ${category} ${variant === 'listing' ? 'business listing' : variant} image`
-  const imageSizes = variant === 'article' ? '(max-width: 640px) 90vw, (max-width: 1024px) 48vw, 420px' : variant === 'image' ? '(max-width: 640px) 82vw, (max-width: 1024px) 34vw, 320px' : '(max-width: 640px) 85vw, (max-width: 1024px) 42vw, 340px'
+  const imageSizes = variant === 'article' ? '(max-width: 640px) 90vw, (max-width: 1024px) 48vw, 420px' : variant === 'image' ? '(max-width: 640px) 82vw, (max-width: 1024px) 34vw, 320px' : '(max-width: 640px) 85vw, (max-width: 1024px) 42vw, 340px)'
 
   const { recipe } = getFactoryState()
   const isDirectoryProduct = recipe.homeLayout === 'listing-home' || recipe.homeLayout === 'classified-home'
   const isDirectorySurface = isDirectoryProduct && (variant === 'listing' || variant === 'classified' || variant === 'profile')
+
+  if (variant === 'image') {
+    return (
+      <Link href={href} className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-[#1b4332]/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(249,247,242,0.96))] shadow-[0_24px_64px_rgba(27,67,50,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_70px_rgba(27,67,50,0.12)]">
+        <div className="relative aspect-[4/5] overflow-hidden bg-muted">
+          <ContentImage src={image} alt={altText} fill sizes={imageSizes} quality={75} className="object-cover transition-transform duration-700 group-hover:scale-[1.05]" intrinsicWidth={960} intrinsicHeight={1200} />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#10281f]/78 via-[#10281f]/12 to-transparent" />
+          <div className="absolute inset-x-0 top-0 flex items-center justify-between p-5">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/14 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-sm">
+              <Tag className="h-3.5 w-3.5" />
+              {category}
+            </span>
+          </div>
+          <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#f3d7b0]">Featured gallery</p>
+            <h3 className="mt-2 line-clamp-2 text-[1.7rem] font-semibold leading-tight">{post.title}</h3>
+          </div>
+        </div>
+        <div className="flex flex-1 flex-col p-6">
+          <p className="text-sm leading-8 text-muted-foreground">{getExcerpt(content.description || post.summary, 180) || 'Explore a visual story arranged with stronger focus and slower pacing.'}</p>
+          <div className="mt-5 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+            <span className="inline-flex items-center gap-1 rounded-full bg-[#1b4332]/6 px-3 py-1 text-[#1b4332]">
+              <Sparkles className="h-3.5 w-3.5" />
+              Curated visual set
+            </span>
+            {content.location ? <span className="inline-flex items-center gap-1"><MapPin className="h-3.5 w-3.5" />{content.location}</span> : null}
+          </div>
+          <div className="mt-auto pt-6 text-sm font-semibold text-[#1b4332]">Open gallery</div>
+        </div>
+      </Link>
+    )
+  }
+
+  if (variant === 'profile') {
+    return (
+      <Link href={href} className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-[#1b4332]/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.97),rgba(249,247,242,0.95))] shadow-[0_20px_56px_rgba(27,67,50,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(27,67,50,0.12)] sm:flex-row">
+        <div className="relative min-h-[280px] overflow-hidden bg-muted sm:w-[40%] sm:min-h-full">
+          <ContentImage src={image} alt={altText} fill sizes="(max-width: 640px) 100vw, 360px" quality={75} className="object-cover transition-transform duration-700 group-hover:scale-[1.05]" intrinsicWidth={960} intrinsicHeight={1200} />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#10281f]/70 via-transparent to-transparent" />
+          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3 text-white">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/14 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] backdrop-blur-sm">
+              {category}
+            </span>
+            <span className="rounded-full bg-white/88 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#1b4332]">
+              Profile
+            </span>
+          </div>
+        </div>
+        <div className="flex flex-1 flex-col p-6 sm:p-7">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#b8894a]">Profile spotlight</p>
+          <h3 className="mt-3 text-[1.85rem] font-semibold leading-tight text-foreground">{post.title}</h3>
+          <p className="mt-4 text-sm leading-8 text-muted-foreground">{getExcerpt(content.description || post.summary, 220) || 'Meet the people and brands shaping this visual community.'}</p>
+          <div className="mt-6 flex flex-wrap gap-3 text-xs text-muted-foreground">
+            {content.location ? <span className="inline-flex items-center gap-1 rounded-full bg-[#1b4332]/6 px-3 py-1 text-[#1b4332]"><MapPin className="h-3.5 w-3.5" />{content.location}</span> : null}
+            {content.email ? <span className="inline-flex items-center gap-1 rounded-full bg-[#d4a373]/12 px-3 py-1 text-[#7f5d33]"><Mail className="h-3.5 w-3.5" />{content.email}</span> : null}
+          </div>
+          <div className="mt-auto flex items-center justify-between pt-7">
+            <span className="text-sm font-semibold text-[#1b4332]">View profile</span>
+            <ArrowUpRight className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </div>
+        </div>
+      </Link>
+    )
+  }
 
   if (isDirectorySurface) {
     const cardTone = {
