@@ -5,7 +5,7 @@ export const siteContent = {
     tagline: '',
   },
   footer: {
-    tagline: 'Visual posts, creators, and discoverable profiles',
+    tagline: '',
   },
   hero: {
     badge: 'Playful visual profiles',
