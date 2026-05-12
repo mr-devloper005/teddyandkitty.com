@@ -361,10 +361,6 @@ function VisualHome({ primaryTask, imagePosts, profilePosts, articlePosts }: { p
         <img src={heroImage} alt="" className="absolute inset-0 h-full w-full object-cover" loading="eager" />
         <div className={`absolute inset-0 ${tone.heroWash}`} aria-hidden />
         <div className="relative z-10 mx-auto max-w-4xl px-4 pb-28 pt-24 text-center sm:pt-28 md:pb-32 md:pt-32">
-          <span className="inline-flex items-center gap-2 rounded-md border border-white/25 bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/95">
-            <ImageIcon className="h-3.5 w-3.5" />
-            Galleries &amp; profiles
-          </span>
           <h1 className="mt-6 text-4xl font-semibold leading-[1.08] tracking-[-0.04em] text-white sm:text-5xl md:text-6xl">
             Curate your look. Share your story. Discover creators through calm, gallery-first browsing.
           </h1>
@@ -377,12 +373,6 @@ function VisualHome({ primaryTask, imagePosts, profilePosts, articlePosts }: { p
               Browse galleries
               <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link
-              href="/profile"
-              className={`inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-semibold backdrop-blur-sm transition-colors ${tone.actionAlt}`}
-            >
-              View profiles
-            </Link>
           </div>
         </div>
 
@@ -394,12 +384,6 @@ function VisualHome({ primaryTask, imagePosts, profilePosts, articlePosts }: { p
                 className="rounded-md bg-[#1b4332] px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#f9f7f2] shadow-sm"
               >
                 Gallery browse
-              </Link>
-              <Link
-                href="/profile"
-                className="rounded-md border border-[#1b4332]/15 bg-[#faf8f4] px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#1b4332] hover:bg-[#f0ebe2]"
-              >
-                Creator discovery
               </Link>
             </div>
             <form action="/search" method="get" className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-stretch">
@@ -457,28 +441,6 @@ function VisualHome({ primaryTask, imagePosts, profilePosts, articlePosts }: { p
           </div>
         </div>
 
-        <div className="mt-16 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className={`rounded-lg p-7 sm:p-8 ${tone.panel}`}>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#b8894a]">Featured creators</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-[#1b4332]">
-              Profiles that read as clearly as the images they showcase.
-            </h2>
-            <p className={`mt-4 max-w-2xl text-sm leading-8 ${tone.muted}`}>
-              Move from a striking still to the person behind it — same visual language, same calm pacing.
-            </p>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-3">
-            {creators.map((post) => (
-              <Link key={post.id} href={`/profile/${post.slug}`} className={`rounded-lg p-4 transition-shadow duration-300 hover:shadow-md ${tone.soft}`}>
-                <div className="relative h-36 overflow-hidden rounded-md sm:h-40">
-                  <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
-                </div>
-                <h3 className="mt-4 text-lg font-semibold text-[#1b4332]">{post.title}</h3>
-                <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{post.summary || 'Creator profile and visual identity surface.'}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
 
         <div className="mt-14 grid gap-4 md:grid-cols-3">
           {gallery.slice(0, 5).map((post, index) => (

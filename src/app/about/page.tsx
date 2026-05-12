@@ -27,8 +27,7 @@ const pillars = [
 ]
 
 const craft = [
-  { title: 'Typography', detail: 'Serif headlines for story, sans-serif UI for wayfinding—same rhythm as the homepage hero.' },
-  { title: 'Color', detail: 'Forest #1b4332 anchors trust; #d4a373 gold signals action; cream backgrounds keep long reads soft.' },
+  { title: 'Typography', detail: 'Serif headlines for story, sans-serif UI for wayfinding—same rhythm as homepage hero.' },
   { title: 'Motion', detail: 'Hover lifts and gentle fades only where they clarify hierarchy—never decoration for its own sake.' },
 ]
 
@@ -103,10 +102,10 @@ export default function AboutPage() {
                 <Palette className="h-4 w-4" />
                 How we design
               </div>
-              <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-foreground">One palette, many surfaces.</h2>
+              <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-foreground">How website works for image only.</h2>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                Whether you land on Galleries, Profiles, Help, or Community, the components echo the homepage: rounded cards, restrained borders,
-                and gold reserved for the actions that move you forward.
+                Whether you land on Images, Help, or other sections, components echo homepage: rounded cards, restrained borders,
+                and gold reserved for actions that move you forward.
               </p>
               <ul className="mt-8 space-y-4">
                 {craft.map((row) => (
