@@ -12,21 +12,15 @@ import { buildPageMetadata } from '@/lib/seo'
 const helpFaqs = [
   {
     id: 'faq-galleries',
-    question: 'How do I publish my first gallery?',
+    question: 'How do I upload my first images?',
     answer:
-      'Create an account, open Galleries from the navigation, then use the create flow to upload images, add a title, and pick a category. You can refine captions later—shipping beats perfection.',
+      'Create an account, click the Upload button in the navigation, then use the upload flow to add images, write a title, and choose a category. You can edit details later—publishing beats perfection.',
   },
   {
-    id: 'faq-profile',
-    question: 'What should I put on my profile?',
+    id: 'faq-categories',
+    question: 'How should I categorize my images?',
     answer:
-      'Lead with who you are and what you photograph. Add one outbound link, optional location, and tie your best gallery so visitors see proof immediately.',
-  },
-  {
-    id: 'faq-community',
-    question: 'How does Community differ from Galleries?',
-    answer:
-      'Community is for short updates, prompts, and lightweight conversation. Galleries remain the hero surface for imagery. Both share the same visual language.',
+      'Pick the category that best matches your visual style or subject. This helps visitors discover similar content and keeps browsing organized.',
   },
   {
     id: 'faq-safety',
@@ -45,22 +39,22 @@ const helpFaqs = [
 const topics = [
   {
     title: 'Getting started',
-    description: 'Create an account, verify basics, and publish your first gallery or profile update in minutes.',
+    description: 'Create an account and upload your first images in minutes with our simple flow.',
     icon: Sparkles,
   },
   {
-    title: 'Galleries & imagery',
-    description: 'Best practices for uploads, categories, and keeping large visuals fast on every device.',
+    title: 'Image uploads',
+    description: 'Best practices for image quality, categories, and keeping visuals fast on every device.',
     icon: ImageIcon,
   },
   {
-    title: 'Profiles & trust',
-    description: 'How bios, links, and discovery work together so visitors recognize you at a glance.',
+    title: 'Account & settings',
+    description: 'Managing your profile, preferences, and keeping your account secure.',
     icon: User,
   },
   {
     title: 'Safety & moderation',
-    description: 'Reporting, boundaries, and how we think about kind spaces for people and pets.',
+    description: 'Reporting, boundaries, and how we maintain kind spaces for the community.',
     icon: Shield,
   },
 ]
@@ -141,32 +135,28 @@ export default function HelpPage() {
                 <li className="flex gap-3">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden />
                   <span>
-                    <strong className="text-foreground">Publish once, polish later.</strong> Ship a gallery with five strong images rather than
-                    thirty rushed frames—visitors remember quality.
+                    <strong className="text-foreground">Upload quality over quantity.</strong> Share 5-10 strong images rather than
+                    dozens of rushed ones—visitors remember your best work.
                   </span>
                 </li>
                 <li className="flex gap-3">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden />
                   <span>
-                    <strong className="text-foreground">Link profiles and posts.</strong> Cross-link so people can jump between your story and
-                    your visuals without hunting.
+                    <strong className="text-foreground">Choose clear categories.</strong> Proper categorization helps
+                    others discover your content and keeps browsing organized.
                   </span>
                 </li>
                 <li className="flex gap-3">
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden />
                   <span>
-                    <strong className="text-foreground">Lean on Community + Help.</strong> Ask in the open when you want perspective; open a
-                    private ticket when you need staff eyes.
+                    <strong className="text-foreground">Use Help when needed.</strong> Contact support for technical issues
+                    or questions about community guidelines.
                   </span>
                 </li>
               </ul>
               <div className="mt-8 flex flex-wrap gap-3 text-sm font-semibold">
-                <Link href="/community" className="text-foreground underline-offset-4 hover:underline">
-                  Visit Community
-                </Link>
-                <span className="text-muted-foreground">·</span>
-                <Link href="/developers" className="text-foreground underline-offset-4 hover:underline">
-                  Developer docs
+                <Link href="/contact" className="text-foreground underline-offset-4 hover:underline">
+                  Contact support
                 </Link>
               </div>
             </div>

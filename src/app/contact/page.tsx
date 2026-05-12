@@ -112,20 +112,7 @@ export default function ContactPage() {
                 </p>
               </div>
 
-              {contactEmail ? (
-                <div className="mt-4 rounded-lg border border-[#d4a373]/35 bg-[#fff7ec] p-4 shadow-sm">
-                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#b8894a]">Direct email</p>
-                      <p className="mt-2 text-sm text-foreground">{contactEmail}</p>
-                    </div>
-                    <Button asChild className="rounded-md bg-[#1b4332] text-[#f9f7f2] hover:bg-[#143728]">
-                      <a href={`mailto:${contactEmail}`}>Email us</a>
-                    </Button>
-                  </div>
-                </div>
-              ) : null}
-            </div>
+                          </div>
 
             <Card className="border-border bg-card shadow-md">
               <CardContent className="p-6 sm:p-8">

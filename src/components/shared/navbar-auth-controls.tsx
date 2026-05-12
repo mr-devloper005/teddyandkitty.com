@@ -41,7 +41,7 @@ export function NavbarAuthControls() {
               <DropdownMenuItem key={task.key} asChild>
                 <Link href={`/create/${task.key}`}>
                   <Icon className="mr-2 h-4 w-4" />
-                  Create {task.label}
+                  {task.key === 'image' ? 'Upload' : 'Create'} {task.label}
                 </Link>
               </DropdownMenuItem>
             )
